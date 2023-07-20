@@ -30,8 +30,14 @@ int main()
         std::cout << b << " ";
         });
 
-    auto for_sin_cos = [](double angle) {std::cout << "sin: " << sin(angle) << "   cos: " << cos(angle); };
-    functions.push_back(for_sin_cos);
+    auto for_sin = [](double angle) {std::cout << "sin: " << sin(angle) << "  "; };
+    functions.push_back(for_sin);
+
+    auto for_cos = [](double angle) {std::cout << "cos: " << cos(angle) << "  "; };
+    functions.push_back(for_cos);
+
+    /*auto for_tan = [](double angle) {std::cout << "tg: " << tan(angle) << "  "; };
+    functions.push_back(for_tan);*/
 
     //или можно так:
      /*auto for_sin = [](double angle) {std::cout << "sin: " << sin(angle); };
