@@ -30,6 +30,8 @@ public:
 		else
 			return create_arr[q];
 	}
+	smart_array(const smart_array&) = delete; //запрещаем конструктор копирования
+	smart_array& operator=(const smart_array&) = delete; //запрещаем оператор присваивания
 
 	~smart_array() //удаляем после срабатывания исключения или по завершению программы.
 	{
