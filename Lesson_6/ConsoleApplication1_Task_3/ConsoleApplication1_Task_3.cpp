@@ -9,6 +9,10 @@ private:
     int value_for_capacity = 0;
     T* array = nullptr;
 public:
+
+    myVector(const myVector&) = delete;
+    myVector& operator = (const myVector&) = delete;
+
     ~myVector()
     {
         delete array;
