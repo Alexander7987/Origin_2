@@ -13,24 +13,24 @@ public:
     myVector(const myVector&) = delete;
     myVector& operator = (const myVector&) = delete;
 
+    myVector() //конструктор по умолчанию для создания пустого вектора
+    {
+        this->array = nullptr;
+        this->counter = 0;
+        this->value_for_capacity = 0;
+    }
+
     ~myVector()
     {
-        delete array;
+        delete []array;
     }
 
     T at(int index)
     {
-        try
-        {
-            if (index < this->counter)
-                return array[index];
-            else
-                throw std::exception();
-        }
-        catch (const std::exception& err)
-        {
-            std::cout << err.what() << std::endl;
-        }  
+        if (index < this->counter && index >= 0)
+            return array[index];
+        else
+            throw std::exception();
     }
 
     void push_back(T value)
@@ -87,7 +87,14 @@ int main()
     std::cout << "второй элемент: " << vector.at(1) << std::endl;
     std::cout << "третий элемент: " << vector.at(2) << std::endl;
     std::cout << "четвертый элемент: " << vector.at(3) << std::endl;
-    vector.at(15);
+    try
+    {
+        vector.at(15);
+    }
+    catch (const std::exception& err)
+    {
+        std::cout << err.what() << std::endl;
+    }
     std::cout << "size: " << vector.size() << std::endl;
     return 0;
 }
