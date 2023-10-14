@@ -24,6 +24,7 @@ public:
     my_unique_ptr& operator ()(T* ptr) //функтор для переопределения объекта после использования метода release()
     {
         this->ptr = ptr;
+        released = false; //т.к. создали(переопределили) заново через функтор объект
         return *this;
     }
 
@@ -61,6 +62,7 @@ int main()
     std::cout << *my_ptr << std:: endl;
     my_ptr.release();
     my_ptr (new int(8));
+    my_ptr(new int(177));
     std::cout << *my_ptr << std::endl;
     return 0;
 }
