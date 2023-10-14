@@ -62,7 +62,6 @@ int main()
     std::cout << *my_ptr << std:: endl;
     my_ptr.release();
     my_ptr (new int(8));
-    my_ptr(new int(177));
     std::cout << *my_ptr << std::endl;
     return 0;
 }
