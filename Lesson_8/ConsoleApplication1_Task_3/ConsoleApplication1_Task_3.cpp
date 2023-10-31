@@ -15,7 +15,7 @@ public:
         this->ptr = nullptr;
     }
 
-    my_unique_ptr(T* ptr) : released(false) //как только создали объекть(или переопределили с помощью функтора)
+    my_unique_ptr(T* ptr) : released(false) //как только создали объект(или переопределили с помощью функтора)
         //то присваиваем переменной released false, т.к. для этого объекта этот метод еще не был использован
     {
         this->ptr = ptr;
@@ -40,9 +40,10 @@ public:
     {
         if (!released)
         {
-            this->ptr = nullptr;
-            return ptr;
+            delete ptr; // this->ptr = nullptr; - если прописываем это вместо "delete ptr", то флаг released не нужен, т.к.
+            //в деструкторе вызов delete по отношению к нулевому указателю вполне легален (см. комментарий от преподавателя)
             released = true;
+            return ptr;
         }
     }
 
