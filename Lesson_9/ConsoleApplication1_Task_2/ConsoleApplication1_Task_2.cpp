@@ -7,6 +7,7 @@ private:
 	std::string a;
 	std::string string_for_return = "";
 	std::string string_for_count = "";
+	int max_size = 0;
 public:
 	big_integer(const std::string& a) :a(a) {}
 
@@ -28,88 +29,54 @@ public:
 	{
 		int i = 0;
 		int c = 0; //может принимать либо 0, либо 1
-		char temp;
-		//std::string a = "99999999999999999999999999999999999999999999999999999999999999999999999999999";
-		//std::string v = "1";
+		char temp; // для сортировки в конце
 		int b;
-		int size_a = std::size(a) - 1; //переменная для корректной работы условного оператора внутри цикла
-		int size_v = std::size(other.a) - 1; //переменная для корректной работы условного оператора внутри цикла
+		int size_a = std::size(a) - 1;
+		int size_v = std::size(other.a) - 1;
 
+		if (size_a >= size_v)
+			max_size = size_a;
+		else
+			max_size = size_v;
 
-		if (std::size(a) >= std::size(other.a)) //если левый операнд длиннее чем правый, например 44444 + 98;
+		for (i = max_size; i >= 0; i--)
 		{
-			for (i = std::size(a) - 1; i >= 0; i--)
+			if (size_a > -1 && size_v > -1)
+				b = (a[size_a--] - '0') + (other.a[size_v--] - '0'); //если работать с символьной арифметикой, то, если результат записывать в int, то получится целочисленное значение. 
+			// В данном случае отнимаем от символьного числа (которое записано в string, а в строках единичный символ является char) символ '0'. 
+			// В результате получаем это же число, но в типе, который занесен в переменную b.
+			else if (size_a > -1)
+				b = a[size_a--] - '0';
+			else if (size_v > -1)
+				b = other.a[size_v--] - '0';
+			b += c;
+			c = 0;
+			if (b / 10 == 0)
 			{
-				if (size_v > -1)
-					b = (static_cast<int>(a[i]) - static_cast<int>('0')) + (static_cast<int>(other.a[size_v--]) - static_cast<int>('0'));
-				else
-					b = static_cast<int>(a[i]) - static_cast<int>('0');
-				b += c;
-				c = 0;
-				if (b / 10 == 0)
-				{
-					string_for_return += b % 10 + '0'; //если прибавить к однозначному числу "'0'" то можно получить его десятичное значение из ASCII, следовательно, 
-					//если полученное десятичное значение прибавлять в string, то оно по ASCII будет преобразовано в символ.
-				}
-				else
-				{
-					if (i == 0)
-					{
-						string_for_return += b % 10 + '0';
-						string_for_return += b / 10 + '0';
-					}
-					else
-					{
-						string_for_return += b % 10 + '0';
-						c = 1;
-					}
-				}
+				string_for_return += b % 10 + '0'; //если прибавить к однозначному числу "'0'" то можно получить его десятичное значение из ASCII, следовательно, 
+				//если полученное десятичное значение прибавлять в string, то оно по ASCII будет преобразовано в символ.
 			}
-			for (i = 0; i < std::size(string_for_return) / 2; i++)
+			else
 			{
-				temp = string_for_return[i];
-				string_for_return[i] = string_for_return[std::size(string_for_return) - 1 - i];
-				string_for_return[std::size(string_for_return) - 1 - i] = temp;
+				if (i == 0)
+				{
+					string_for_return += b % 10 + '0';
+					string_for_return += b / 10 + '0';
+				}
+				else
+				{
+					string_for_return += b % 10 + '0';
+					c = 1;
+				}
 			}
 		}
-
-		//все еще внутри перегрузки оператора "+"/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		if (std::size(other.a) >= std::size(a)) //если левый операнд длиннее чем правый, например 44444 + 98;
+		for (i = 0; i < std::size(string_for_return) / 2; i++)
 		{
-			for (i = std::size(other.a) - 1; i >= 0; i--)
-			{
-				if (size_a > -1)
-					b = (static_cast<int>(other.a[i]) - static_cast<int>('0')) + (static_cast<int>(a[size_a--]) - static_cast<int>('0'));
-				else
-					b = static_cast<int>(other.a[i]) - static_cast<int>('0');
-				b += c;
-				c = 0;
-				if (b - (b % 10) == 0 && b != 10)
-				{
-					string_for_return += b % 10 + '0'; //если прибавить к однозначному числу "'0'" то можно получить его десятичное значение из ASCII, следовательно, 
-					//если полученное десятичное значение прибавлять в string, то оно по ASCII будет преобразовано в символ.
-				}
-				else
-				{
-					if (i == 0)
-					{
-						string_for_return += b % 10 + '0';
-						string_for_return += b / 10 + '0';
-					}
-					else
-					{
-						string_for_return += b % 10 + '0';
-						c = 1;
-					}
-				}
-			}
-			for (i = 0; i < std::size(string_for_return) / 2; i++)
-			{
-				temp = string_for_return[i];
-				string_for_return[i] = string_for_return[std::size(string_for_return) - 1 - i];
-				string_for_return[std::size(string_for_return) - 1 - i] = temp;
-			}
+			temp = string_for_return[i];
+			string_for_return[i] = string_for_return[std::size(string_for_return) - 1 - i];
+			string_for_return[std::size(string_for_return) - 1 - i] = temp;
 		}
+
 
 		return string_for_return;
 	}
@@ -119,7 +86,6 @@ public:
 		int i = 0, j = 0;
 		int c = 0; //может принимать либо 0, либо 1
 		char temp;
-		//std::string a = "99999999999999999";
 		string_for_count = a;
 		int size_a = std::size(a) - 1; //переменная для корректной работы условного оператора внутри цикла
 		//int v = 44444;
