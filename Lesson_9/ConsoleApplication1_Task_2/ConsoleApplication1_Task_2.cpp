@@ -76,8 +76,6 @@ public:
 			string_for_return[i] = string_for_return[std::size(string_for_return) - 1 - i];
 			string_for_return[std::size(string_for_return) - 1 - i] = temp;
 		}
-
-
 		return string_for_return;
 	}
 
@@ -95,9 +93,9 @@ public:
 			for (j = std::size(string_for_count) - 1; j >= 0; j--)
 			{
 				if (size_a > -1)
-					b = (static_cast<int>(string_for_count[j]) - static_cast<int>('0')) + (static_cast<int>(a[size_a--]) - static_cast<int>('0'));
+					b = (string_for_count[j] - '0') + (a[size_a--] - '0');
 				else
-					b = (static_cast<int>(string_for_count[j]) - static_cast<int>('0'));
+					b = string_for_count[j] - '0';
 				b += c;
 				c = 0;
 				if (b / 10 == 0)
@@ -141,7 +139,7 @@ int main()
 	auto number2 = big_integer("5486002");
 	auto result = number1 + number2;
 	std::cout << result << std::endl; // 267432006691498
-	result = number2 * 5;
+	result = number2 * 5; //27430010
 	std::cout << result << std::endl;
 	return 0;
 }
