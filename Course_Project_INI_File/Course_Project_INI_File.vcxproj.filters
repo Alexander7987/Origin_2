@@ -18,9 +18,6 @@
     <ClCompile Include="Course_Project_INI_File.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="constructor_ini_parser.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ini_parser.h">
