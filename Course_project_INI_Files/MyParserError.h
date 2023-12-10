@@ -10,7 +10,7 @@ class MyParserError : public std::exception //свой класс для исключений
 {
 private:
     int count_string = 0;
-    std::string error_message = "Обнаружена ошибка в строке ";
+    std::string error_message = "Error in line  ";
     std::string temp_string = "";
 
 public:

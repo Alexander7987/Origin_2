@@ -17,7 +17,7 @@ int main()
 	try
 	{
 		ini_parser parser("filename");
-		auto value = parser.get_value <std::string> ("Section5.var_7543");
+		auto value = parser.get_value <std::string> ("Section1.var_7543");
 		std::cout << value;
 	}
 	catch (const char* ex)
