@@ -1,4 +1,6 @@
-﻿#include <ini_parser.h>
+﻿// CPP для головного файла
+#include <ini_parser.h>
+#include <MyParserError.h>
 #include <iostream>
 #include <Windows.h>
 #include <string>
@@ -9,39 +11,23 @@
 
 int main()
 {
-	setlocale(LC_ALL, "Russian");
-	SetConsoleOutputCP(1251);
-	SetConsoleCP(1251);
+	//setlocale(LC_ALL, "Russian"); // отключаем русскую локализацию, т.к. число в файле в русской версии не воспринимается как дробное, если писать через точку. 
+	//SetConsoleOutputCP(1251); // Для того, чтобы работать с дробными числами в файле, необходимо писать в числах запятую, если работаем с русской локализацией.
+	//SetConsoleCP(1251);
 	try
 	{
 		ini_parser parser("filename");
-		auto value = parser.get_value<int>("Section4.var99");
-		if (std::holds_alternative<int>(value))
-		{
-			auto result_int = std::get<int>(value);
-			std::cout << result_int;
-		}
-		else if (std::holds_alternative<double>(value))
-		{
-			auto& result_string = std::get<double>(value);
-			std::cout << result_string;
-		}
-		else if (std::holds_alternative<std::string>(value))
-		{
-			auto& result_string = std::get<std::string>(value);
-			std::cout << result_string;
-		}
-		else if (std::holds_alternative<std::vector <std::pair <std::string, std::string>>>(value))
-		{
-			auto& result_vector = std::get<std::vector <std::pair <std::string, std::string>>>(value);
-			std::for_each(result_vector.begin(), result_vector.end(), [](const std::pair <std::string, std::string>& my_vector) {
-				std::cout << my_vector.first << std::endl;
-				});
-		}
+		auto value = parser.get_value <std::string> ("Section5.var_7543");
+		std::cout << value;
 	}
-	catch (const int& e)
+	catch (const char* ex)
 	{
-		std::cout << "Проблема в строке " << e;
+		std::cout << ex;
 	}
+	catch (const MyParserError& ex)
+	{
+		std::cout << ex.what();
+	}
+
 	return 0;
 }
